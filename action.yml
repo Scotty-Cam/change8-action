@@ -1,0 +1,19 @@
+name: 'Change8 Dependency Check'
+description: 'Analyze dependency updates for breaking changes and link to migration guides'
+author: 'Change8'
+branding:
+  icon: 'alert-triangle'
+  color: 'orange'
+
+inputs:
+  github-token:
+    description: 'GitHub token for posting comments'
+    required: true
+  fail-on-breaking:
+    description: 'Fail the action if breaking changes are found'
+    required: false
+    default: 'false'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
