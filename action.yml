@@ -13,6 +13,9 @@ inputs:
     description: 'Fail the action if breaking changes are found'
     required: false
     default: 'false'
+  change8-service-key:
+    description: 'Optional Change8 API service key for authenticated access'
+    required: false
 
 runs:
   using: 'node20'

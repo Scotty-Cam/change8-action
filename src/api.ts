@@ -2,6 +2,23 @@ import { DependencyChange } from './parsers';
 
 const CHANGE8_API = 'https://api.change8.dev/api/v1';
 
+// Service key is optional - set via CHANGE8_SERVICE_KEY env var or action input
+let serviceKey: string | undefined;
+
+export function setServiceKey(key: string | undefined) {
+    serviceKey = key;
+}
+
+function getHeaders(): HeadersInit {
+    const headers: HeadersInit = {
+        'Content-Type': 'application/json',
+    };
+    if (serviceKey) {
+        headers['Authorization'] = `Bearer ${serviceKey}`;
+    }
+    return headers;
+}
+
 interface BreakingChange {
     change: string;
     fix?: string;
@@ -47,10 +64,11 @@ async function getBreakingChangesForPackage(change: DependencyChange): Promise<B
     // Map common package names to Change8 source IDs
     const sourceId = mapPackageToSourceId(change.package);
 
-    const url = `${CHANGE8_API}/releases/diff?package=${encodeURIComponent(sourceId)}&from_version=${encodeURIComponent(change.fromVersion)}&to_version=${encodeURIComponent(change.toVersion)}`;
+    // Use correct /diff endpoint with proper query params
+    const url = `${CHANGE8_API}/diff?package=${encodeURIComponent(sourceId)}&from=${encodeURIComponent(change.fromVersion)}&to=${encodeURIComponent(change.toVersion)}`;
 
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { headers: getHeaders() });
 
         if (!response.ok) {
             // Try getting releases for the target version instead
@@ -75,7 +93,7 @@ async function getBreakingChangesFromRelease(change: DependencyChange, sourceId:
     // Fallback: get the specific release
     const url = `${CHANGE8_API}/releases?source=${encodeURIComponent(sourceId)}&limit=50`;
 
-    const response = await fetch(url);
+    const response = await fetch(url, { headers: getHeaders() });
 
     if (!response.ok) {
         throw new Error(`API error: ${response.status}`);

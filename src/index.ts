@@ -1,12 +1,19 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import { parseDependencyChanges } from './parsers';
-import { getBreakingChanges, DependencyChange } from './api';
+import { getBreakingChanges, DependencyChange, setServiceKey } from './api';
 
 async function run(): Promise<void> {
     try {
         const token = core.getInput('github-token', { required: true });
         const failOnBreaking = core.getInput('fail-on-breaking') === 'true';
+        const serviceKey = core.getInput('change8-service-key') || process.env.CHANGE8_SERVICE_KEY;
+        
+        // Set service key for API authentication (optional)
+        if (serviceKey) {
+            setServiceKey(serviceKey);
+            core.info('Using authenticated Change8 API access');
+        }
 
         const octokit = github.getOctokit(token);
         const context = github.context;

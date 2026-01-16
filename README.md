@@ -45,6 +45,20 @@ jobs:
 |-------|-------------|----------|---------|
 | `github-token` | GitHub token for posting comments | Yes | - |
 | `fail-on-breaking` | Fail the action if breaking changes are found | No | `false` |
+| `change8-service-key` | Optional API key for authenticated access (provides higher rate limits) | No | - |
+
+### Using an API Key
+
+For higher rate limits and priority access, you can provide a Change8 service key:
+
+```yaml
+- uses: Scotty-Cam/change8-action@v1
+  with:
+    github-token: ${{ secrets.GITHUB_TOKEN }}
+    change8-service-key: ${{ secrets.CHANGE8_SERVICE_KEY }}
+```
+
+Alternatively, set the `CHANGE8_SERVICE_KEY` environment variable.
 
 ## Example Output
 
