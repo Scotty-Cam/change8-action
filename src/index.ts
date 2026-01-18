@@ -191,7 +191,7 @@ function generateComment(results: BreakingResult[]): string | null {
         comment += `📖 **[Full Migration Guide →](${result.migrationUrl})**\n\n---\n\n`;
     }
 
-    comment += `\n<sub>Powered by [Change8](https://change8.dev) - AI-powered changelog analysis</sub>`;
+    comment += `\n<sub>Powered by [Change8](https://www.change8.dev) - AI-powered changelog analysis</sub>`;
 
     return comment;
 }

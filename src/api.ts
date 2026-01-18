@@ -159,5 +159,5 @@ function mapPackageToSourceId(packageName: string): string {
 function buildMigrationUrl(sourceId: string, version: string): string {
     // Clean version - remove v prefix if present
     const cleanVersion = version.replace(/^v/, '');
-    return `https://change8.dev/guides/${sourceId}/migrating-to-${cleanVersion}`;
+    return `https://www.change8.dev/guides/${sourceId}/migrating-to-${cleanVersion}`;
 }

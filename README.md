@@ -75,11 +75,11 @@ When a PR updates dependencies with breaking changes, the action posts a comment
 > | `ChatOpenAI` moved to `langchain_openai` | Update import path |
 > | `predict()` removed | Use `invoke()` instead |
 > 
-> 📖 **[Full Migration Guide →](https://change8.dev/guides/langchain/migrating-to-1.0.0)**
+> 📖 **[Full Migration Guide →](https://www.change8.dev/guides/langchain/migrating-to-1.0.0)**
 
 ## Supported Packages
 
-This action works with any package tracked by [Change8](https://change8.dev/packages), including:
+This action works with any package tracked by [Change8](https://www.change8.dev/packages), including:
 
 - LangChain, LangGraph
 - Next.js, React
